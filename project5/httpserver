@@ -1,0 +1,14 @@
+#!/usr/bin/python
+
+from http import HttpServer
+import sys
+
+# check command parameter
+if len(sys.argv) != 5:
+	print "please run as ./httpserver -p <port> -o <origin>"
+	sys.exit(0)
+port = int(sys.argv[2])
+origin = sys.argv[4]
+
+http = HttpServer(origin, port)
+http.run()

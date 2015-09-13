@@ -1,0 +1,102 @@
+import os
+import re
+
+
+command = "/course/cs4700f12/ns-allinone-2.35/bin/ns"
+program = " ns-simple-test.tcl"
+# throughput 
+def throughput_cal(n_receive):
+	return float(n_receive * 1000) / 15.0 
+
+# average drop rate
+def avg_pac_drop(n_drop, n_receive):
+	return float(n_drop)/float(n_drop + n_receive)
+
+def start(tcp_type, CBR_rate):
+	command1 = command + program + " " + str(CBR_rate) + " " + tcp_type  
+	print command1
+	os.system(command1)
+	
+# the experiment 1
+def exp_drop(f):
+	n_drop = 0
+	n_receive = 0
+	while f:
+		line = f.reafdline().split()
+		if not line:
+			break
+		if line[4] == 'tcp':	
+			if line[0] == 'r':
+				n_receive += 1
+			if line[0] == 'd':
+				n_drop += 1
+				print line
+	return avg_pac_drop(n_drop, n_receive)
+
+def throughput(f):
+	n_receive = 0
+	while f:
+		line = f.readline().split()
+		if not line:
+			break
+		if line[4] == 'tcp':
+			if line[0] == 'r':
+				n_receive += 1
+	return throughput_cal(n_receive)
+
+def latency(f):
+	dep_time = {}
+	recv_time = {}
+	late = 0
+	while f:
+		line = f.readline().split()
+		if not line:
+			break
+		if line[4] == 'tcp':
+			if line[0] == '+':
+				if line[9] not in dep_time.keys():
+					dep_time[line[9]] = line[1]
+			if line[0] == 'r':
+				if line[9] not in recv_time.keys():
+					recv_time[line[9]] = line[1]
+	for s in recv_time.keys():
+		late += recv_time[s] - dep_time[s]
+	late = late/len(recv_time.keys())
+	return late
+
+result_Tahoe = 0
+result_Reno = 0
+result_NewReno = 0
+result_Vegas = 0
+Tahoe_ex1 = open("Tahoe_ex1.txt", 'w')
+Reno_ex1 = open("Reno_ex1.txt",'w')
+NewReno_ex1 = open("NewReno_ex1.txt",'w')
+Vegas_ex1 = open("Vegas_ex1.txt",'w')
+def writefile(f, TCP_type):
+	result_drop = 0
+	result_throughput = 0
+	result_latency = 0
+	for r in range(1, 11):
+		print r
+		for i in range(0,20):
+			tr = start(TCP_type, r)
+			tr = open("tahoe-out.tr", 'r')
+			result_drop += exp_drop(tr)
+			tr = open("tahoe-out.tr", 'r')
+			result_throughput += throughput(tr)
+			tr = open("tahoe-out.tr", 'r')
+			result_latency += latency(tr)
+		result_drop /= 20
+		result_throughput /= 20
+		result_latency /= 20
+		f.write("Cbr drop_rate\n")
+		f.write(str(r) + " " + str(result_drop) + "\n")
+		f.write("CBR throughput\n")
+		f.write(str(r) + " " + str(result_throughput) + "\n")
+		f.write("CBR latency\n")
+		f.write(str(r) + " " + str(result_latency) + "\n")
+
+writefile(Tahoe_ex1, "TCP")
+writefile(Reno_ex1, "TCP/Reno")
+writefile(NewReno_ex1, "TCP/Newreno")
+writefile(Vegas_ex1, "TCP/Vegas")

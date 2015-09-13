@@ -1,0 +1,115 @@
+
+############################
+#      FINAL PROJECT       #
+############################
+
+############################
+#   HIGH-LEVEL APPROACH    #
+############################
+
+I. DNS Server:
+1. Mapping strategy:
+In the final project, we use three mapping strategies. One is called active management, another called Ip
+Geolocation mapping strategy, the last one is random mapping strategy. The reason why we need a good 
+mapping strategy is that we have to find the best replica server for given client to download web page.
+The best replica server is determined by the best TTC that it can offer to the request client.  
+
+1.1 Active Management Strategy:
+We will use the scamper command provided in the project to measure latency between the replica and client. 
+scamper -c 'ping -c 1' -i [client ip]. We will sort the RTTs from the ping results, and choose the replica 
+who owns the least RTT and then map them together. However, the active management method may encounter 
+some limitations, ie, some replicas or gateway will block ICMP.
+
+1.2 Geolocation Mapping Strategy:
+Since every replica has its limitation, and the managemnt strategy should ping from the replica to the 
+client first, then it can deal with the mapping business. Initially, we will use Geolocation mapping
+strategy to find the best replica in location. We assume that the replica which is the most close to the
+client should have the shortest RTT, but it is not accurate. But it is better than returning a random 
+replica server to the client. We can get the geolocation information from the ip address, using the 
+command in the linux, ie, curl ipinfo.io/[client ip]. This is an online ip geolocation info service.
+The query result contains the latitude and longitude of the given ip address. Using mathematic formula
+to caculate the distance between replica and client. We always choose the closest one as the response
+replica.  
+
+1.3 Random Mapping Strategy:
+When active managment and geolocation does not work, we will use the random mapping strategy. It is very
+simple, we will just return a replica randomly from the ec2 host files.
+
+2.Cache Management:
+In DNS Server, we just need to cache the <client_ip,replica_ip> entries. Therefore, we don't need to worry 
+about the limitation of memory size. We keep a ordereddict to implement LRU cache algorithm. To make the 
+cache presisiting, we also start a demean thread to dumps and loads the cache every 5s. 
+
+II. HTTP Server
+1. Cahe Management
+In the requirements of this project, every replica only could have 10MB disk quota, so it is important 
+to implement a good cache management strategy. We used the Least Recently Used(LRU) method. This method
+will discard the least recently used items first. Due to the relatively large size of each content. We zip 
+content and write it on the disk with a filename of md5 of the path.
+
+2. Ping in the active measure
+To perform the active measurement, we build the function of ping in the httpserver via RESTful Api. Each time
+the DNSserver wanst to perform the active measurement, it will do GET request with ping?[params]. The Httpserver
+will solve this request to scamper to the client_ip and return the rrt 
+
+########################################
+#   PERFORMANCE ENHANCING TECHNIQUES   #
+########################################
+
+1. Mapping Improvement
+In this project, we perform the active measurement to get the best replica server ip. Becasue the rrt returned by
+each httpserver is the best factor to determine the performance of the replica server with the client. However, due
+to some reason, the active measurement will not perform very well. i.e. the ping request will not be reponsed on time
+due to the bad connection between the dnsserver and the replica server. We also implement geolocation and random. Although
+random seems bad to the client, he will be sure to have the service.
+
+2. Cache Management Improvement
+We use LRU cache algorithm in this project. It performs very well in our own test. We use zip to compress the content in the
+httpserver to increase the hit ratio.
+
+##################
+#   CHALLENGEs   #
+##################
+
+1. How to design a better mapping strategy
+At first, we just implemented the random method. Then, we decided to use the active measurement. The first problem is how to
+send the client ip to the httpserver. We tried a lot of methods. Finally, we decided to use RESTful API. Then, we were struggling
+on how to improve the measurement speed. After discussion, we determined to use multithread. To use the multihread, we were stuck
+on the rtts dict write and read lock. Now, the program lock on every read and write operation
+
+2. How to design a good cache management strategy for http server
+Because, the httpserver test will follow zipf distribution, we wanted to use the LFU. However, we found it must maintain another
+data structure to record the frequence. We think 10 Mb is not that large, therefore, we use LRU with a list. Also, we were wandering
+cache in the memory or disk. Finally, we think the IO speed can be tolrated compared to the network delay. We write all the cache on
+the disk. We also uesd compression in the cache, Therefore, 10MB can be a very large space and we can improve our hit ratio.
+
+
+####################
+#   FUTURE WORK    #
+####################
+1. More efficient cache: the cache we used now is not very well. We wants to improve the cache. We think we should use LFU cache
+algorithm.
+2. Sacability: if the replica server has some change, we shoud able to solve the change. Perhaps, the server will notify the dnsserver
+, then  dnsserver will do the change as well.  
+
+
+############################
+#   He Shi's work          #
+############################
+I have algorithm final during this week. My work was to implement the httpserver. I used BaseHTTPServer lib
+to implemen it. After I finished the httpserver, I debugged the dnsserver with Shifu Xu. Then, I designed the
+futured work together with him.
+I implemented the active measurement in the dnsserver and httpserver. Also, I Implement deploy, run and stop srcipt.
+Finally, I implemented httpserver cache.
+
+############################
+#   Shifu Xu's work        #
+############################
+I used BaseHTTPServer to implemnt a dns server, and it is acturally a UDP server. I have added the feature to make
+it like a dns server. I will keeping listenin the dns request from the client. and parse the packet to get the requested 
+domain name. Then I will assemble a dns packet with response which contains the ip information and send that to the clinet.
+During this process, we have overcomed how to test our dns server code.
+
+
+
+

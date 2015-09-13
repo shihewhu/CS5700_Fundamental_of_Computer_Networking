@@ -1,0 +1,11 @@
+#!/usr/bin/python
+import sys
+from http import *
+
+if len(sys.argv) != 2:
+	print "the format is not correct, please enter again"
+
+# initiate a instance of Http class
+http = Http()
+# call the grep_date method provided by application(http) layer
+http.grep_data(sys.argv[1])

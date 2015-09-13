@@ -1,0 +1,17 @@
+#!/usr/bin/python
+import sys
+from dns import *
+
+# check input correctness
+if len(sys.argv) != 5:
+	print "the script format is incorrect"
+	print "./dnsserver -p <port> -n <name>"
+	sys.exit(0)
+
+# get the port and hostname from input
+port = sys.argv[2]
+name = sys.argv[4]
+
+# initiate an instance of dns and run dns
+dns = DNSServer(int(port), name)
+dns.run()

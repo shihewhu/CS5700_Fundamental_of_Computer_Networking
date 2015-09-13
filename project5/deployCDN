@@ -1,0 +1,43 @@
+#!/bin/bash
+
+
+# scp -r dns_server shihe@cs5700cdnproject.ccs.neu.edu:~/
+# scp -r http_server shihe@ec2-52-0-73-113.compute-1.amazonaws.com:~/
+# #ssh shihe@ec2-52-0-73-113.compute-1.amazonaws.com cd /home/shihe/project5/ make
+# scp -r http_server shihe@ec2-52-16-219-28.eu-west-1.compute.amazonaws.com:~/
+# #ssh shihe@ec2-52-0-73-113.compute-1.amazonaws.com cd /home/shihe/project5/ make
+# scp -r http_server shihe@ec2-52-11-8-29.us-west-2.compute.amazonaws.com:~/
+# #ssh shihe@ec2-52-0-73-113.compute-1.amazonaws.com cd /home/shihe/project5/ make
+
+OPTIND=1
+port=""
+origin=""
+name=""
+username=""
+keyfile=""
+# parse all the option and option argument
+while getopts "p:o:n:u:i:" opts; do
+	case $opts in
+		p) port=$OPTARG
+			;;
+		o) origin=$OPTARG
+			;;
+		n) name=$OPTARG
+			;;
+		u) username=$OPTARG
+			;;
+		i) keyfile=$OPTARG
+			;;
+	esac
+done
+
+ec2hosts=($(cut -d$'\t' -f1 ec2-hosts.txt))
+
+unset ec2hosts[0]
+for h in ${ec2hosts[@]}; do
+	scp -oStrictHostKeyChecking=no -i $keyfile http.py http_cache.py httpserver $username@$h:~/ >> /dev/null 2>&1
+done
+
+scp -oStrictHostKeyChecking=no -i $keyfile dnsserver dns_cache.py dns.py mapper.py DNSPacket.py $username@cs5700cdnproject.ccs.neu.edu:~/ >> /dev/null 2>&1
+# > /dev/null
+

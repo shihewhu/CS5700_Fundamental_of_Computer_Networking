@@ -1,0 +1,891 @@
+Last login: Wed Apr 29 15:02:09 on ttys006
+shihe1@ShiHes-MacBook-Air ~$ ssh shihe@ec2-52-0-73-113.compute-1.amazonaws.com
+Welcome to Ubuntu 12.04.3 LTS (GNU/Linux 3.2.0-60-virtual x86_64)
+
+ * Documentation:  https://help.ubuntu.com/
+
+ System information disabled due to load higher than 1.0
+
+  Get cloud support with Ubuntu Advantage Cloud Guest:
+    http://www.ubuntu.com/business/services/cloud
+
+  Use Juju to deploy your cloud instances and workloads:
+    https://juju.ubuntu.com/#cloud-precise
+
+189 packages can be updated.
+131 updates are security updates.
+
+New release '14.04.2 LTS' available.
+Run 'do-release-upgrade' to upgrade to it.
+
+*** /dev/xvda1 will be checked for errors at next reboot ***
+
+Last login: Wed Apr 29 18:18:55 2015 from 129.10.18.22
+shihe@ip-172-31-7-167:~$ rm -r cache/
+shihe@ip-172-31-7-167:~$ rm -r cache/
+shihe@ip-172-31-7-167:~$ rm -r cache/
+shihe@ip-172-31-7-167:~$ pkill -f httpserver
+pkill: 3869 - Operation not permitted
+pkill: 4834 - Operation not permitted
+pkill: 12776 - Operation not permitted
+pkill: 12978 - Operation not permitted
+pkill: 12980 - Operation not permitted
+pkill: 13168 - Operation not permitted
+pkill: 13280 - Operation not permitted
+pkill: 13642 - Operation not permitted
+pkill: 13691 - Operation not permitted
+pkill: 16761 - Operation not permitted
+pkill: 19726 - Operation not permitted
+pkill: 19729 - Operation not permitted
+pkill: 19734 - Operation not permitted
+pkill: 19736 - Operation not permitted
+pkill: 22588 - Operation not permitted
+pkill: 23939 - Operation not permitted
+pkill: 25444 - Operation not permitted
+pkill: 26878 - Operation not permitted
+pkill: 30515 - Operation not permitted
+shihe@ip-172-31-7-167:~$ pkill -f httpserver
+pkill: 3869 - Operation not permitted
+pkill: 4834 - Operation not permitted
+pkill: 12776 - Operation not permitted
+pkill: 12978 - Operation not permitted
+pkill: 12980 - Operation not permitted
+pkill: 13168 - Operation not permitted
+pkill: 13280 - Operation not permitted
+pkill: 13642 - Operation not permitted
+pkill: 13691 - Operation not permitted
+pkill: 16761 - Operation not permitted
+pkill: 19726 - Operation not permitted
+pkill: 19729 - Operation not permitted
+pkill: 19734 - Operation not permitted
+pkill: 19736 - Operation not permitted
+pkill: 22588 - Operation not permitted
+pkill: 23939 - Operation not permitted
+pkill: 25444 - Operation not permitted
+pkill: 26878 - Operation not permitted
+pkill: 30515 - Operation not permitted
+shihe@ip-172-31-7-167:~$ pkill -f httpserver
+pkill: 3869 - Operation not permitted
+pkill: 4834 - Operation not permitted
+pkill: 12776 - Operation not permitted
+pkill: 12978 - Operation not permitted
+pkill: 12980 - Operation not permitted
+pkill: 13168 - Operation not permitted
+pkill: 13280 - Operation not permitted
+pkill: 13642 - Operation not permitted
+pkill: 13691 - Operation not permitted
+pkill: 16761 - Operation not permitted
+pkill: 19726 - Operation not permitted
+pkill: 19729 - Operation not permitted
+pkill: 19734 - Operation not permitted
+pkill: 19736 - Operation not permitted
+pkill: 22588 - Operation not permitted
+pkill: 23939 - Operation not permitted
+pkill: 25444 - Operation not permitted
+pkill: 26878 - Operation not permitted
+pkill: 30515 - Operation not permitted
+shihe@ip-172-31-7-167:~$ rm -r cache/
+shihe@ip-172-31-7-167:~$ ls
+cache          http_cache.pyc  http.out  http.pyc
+http_cache.py  http.err        http.py   httpserver
+shihe@ip-172-31-7-167:~$ rm -r cache/
+shihe@ip-172-31-7-167:~$ ./httpserver -p 40001 -o ec2-52-4-98-110.compute-1.amazonaws.com:8080Write failed: Broken pipe
+shihe1@ShiHes-MacBook-Air ~$ ls
+Applications                   Dropbox
+Creative Cloud Files           Library
+Creative Cloud Files (unknown) Movies
+Desktop                        Music
+Documents                      Pictures
+Downloads                      Public
+Downloads.rar.dmg
+shihe1@ShiHes-MacBook-Air ~$ ls
+Applications                   Dropbox
+Creative Cloud Files           Library
+Creative Cloud Files (unknown) Movies
+Desktop                        Music
+Documents                      Pictures
+Downloads                      Public
+Downloads.rar.dmg
+shihe1@ShiHes-MacBook-Air ~$ cd Documents/
+shihe1@ShiHes-MacBook-Air Documents$ ls
+Computer System            leetcode
+FCN                        life-journey
+MacKeeper Backups          mydir
+Microsoft User Data        onedrive
+Virtual Machines.localized pdp
+algorithm                  somefiles
+bash                       workspace
+bible                      xv6
+computersystem
+shihe1@ShiHes-MacBook-Air Documents$ cd FCN/
+shihe1@ShiHes-MacBook-Air FCN$ ls
+Meddle                  networks.pdf            project3
+Web_Crawler_Study       ns-simple-test.tcl      project4
+id_rsa                  origin_sites            project5
+ip_to_identity.txt      output                  shihe@login.ccs.neu.edu
+ipts                    paper                   studybash
+ls                      ppt                     studyserver
+monitor_memory.sh       project1                test_httpserver.py
+namestotimestamps       project2                total_size.py
+shihe1@ShiHes-MacBook-Air FCN$ cp id_rsa ~/.ssh/
+shihe1@ShiHes-MacBook-Air FCN$ scp id_rsa shihe@login.ccs.neu.edu
+shihe1@ShiHes-MacBook-Air FCN$ scp id_rsa shihe@login.ccs.neu.edu:~/Documents/
+id_rsa                                        100% 1675     1.6KB/s   00:00    
+shihe1@ShiHes-MacBook-Air FCN$ ssh shihe@login.ccs.neu.edu
+This machine is running CCIS Linux based on Ubuntu 12.04.5 LTS (GNU/Linux 3.2.0-76-generic x86_64)
+
+ * Official documentation can be found at:  https://help.ubuntu.com/
+
+
+
+If you have problems with this system, please report them to
+<systems@ccs.neu.edu>.
+
+Regular maintenance is scheduled every Wednesday from 11:45am to 1:45pm
+unless otherwise announced, and this machine might not be available
+during that time.  See http://www.ccs.neu.edu/downtime/ for details.
+
+	NOTE: You are using the new, upgraded login.ccs.neu.edu.
+
+	As a courtesty to those who need time to transition cron
+	jobs or old software, the old login.ccs.neu.edu can be
+	found at: login-karmic.ccs.neu.edu.
+
+	The old login will be powered off after the end of the
+	Fall 2013 semester.
+
+Last login: Thu Apr 30 18:23:18 2015 from 10.103.18.89
+shihe@login ~$ ls
+bin		Desktop        dns.out	      dns.pyc	 mapper.py   Public
+cache.json	dns_cache.py   DNSPacket.py   dnsserver  mapper.pyc  README
+check_grade.sh	dns_cache.pyc  DNSPacket.pyc  Documents  Music	     Templates
+classes		dns.err        dns.py	      Downloads  Pictures    Videos
+shihe@login ~$ cd Documents/
+shihe@login Documents$ ls
+Algorithm   index.html.1	  project2_master_sifu	test.py
+data.txt    index.html.2	  project3		test.tcl
+dns.py	    monitor_memory.sh	  project4		webcrawler
+FCN	    ns.sh		  project5		web_crawler.py
+id_rsa	    project1		  ps1_8_a.py
+index.html  project1_master_sifu  simple_client.py
+shihe@login Documents$ cd project5
+shihe@login project5$ ls
+client.py     DNSPacket.py  ec2-hosts.txt  httpserver  README	       stopCDN
+deployCDN     dns.py	    http_cache.py  Makefile    removecache.sh
+dns_cache.py  dnsserver     http.py	   mapper.py   runCDN
+shihe@login project5$ vim removecache.sh 
+shihe@login project5$ ls      
+client.py     DNSPacket.py  ec2-hosts.txt  httpserver  README	       stopCDN
+deployCDN     dns.py	    http_cache.py  Makefile    removecache.sh
+dns_cache.py  dnsserver     http.py	   mapper.py   runCDN
+shihe@login project5$ vim removecache.sh 
+shihe@login project5$ ./removecache.sh shihe ../id_rsa 
+-bash: ./removecache.sh: Permission denied
+shihe@login project5$ chmod +x removecache.sh 
+shihe@login project5$ ls
+client.py     DNSPacket.py  ec2-hosts.txt  httpserver  README	       stopCDN
+deployCDN     dns.py	    http_cache.py  Makefile    removecache.sh
+dns_cache.py  dnsserver     http.py	   mapper.py   runCDN
+shihe@login project5$ ./removecache.sh shihe ../id_rsa 
+shihe
+./removecache.sh: line 24: syntax error: unexpected end of file
+shihe@login project5$ vim removecache.sh 
+shihe@login project5$ ./removecache.sh shihe ../id_rsa 
+shihe
+delete cache on ec2-52-0-73-113.compute-1.amazonaws.com
+delete cache on ec2-52-16-219-28.eu-west-1.compute.amazonaws.com
+delete cache on ec2-52-11-8-29.us-west-2.compute.amazonaws.com
+delete cache on ec2-52-8-12-101.us-west-1.compute.amazonaws.com
+delete cache on ec2-52-28-48-84.eu-central-1.compute.amazonaws.com
+delete cache on ec2-52-68-12-77.ap-northeast-1.compute.amazonaws.com
+delete cache on ec2-52-74-143-5.ap-southeast-1.compute.amazonaws.com
+delete cache on ec2-52-64-63-125.ap-southeast-2.compute.amazonaws.com
+delete cache on ec2-54-94-214-108.sa-east-1.compute.amazonaws.com
+delete cache on cs5700cdnproject
+shihe@login project5$ ls
+client.py     DNSPacket.py  ec2-hosts.txt  httpserver  README	       stopCDN
+deployCDN     dns.py	    http_cache.py  Makefile    removecache.sh
+dns_cache.py  dnsserver     http.py	   mapper.py   runCDN
+(reverse-i-search)`./d': ^Cdnsserver -p 40002 -n cs5700cdn.example.com
+shihe@login project5$ ./deployCDN -p 40002 -o ec2-52-4-98-110.compute-1.amazonaws.com:8080 -n cs5700cdn.example.com -u shihe -i ../id_rsa
+shihe@login project5$ ./runCDN -p 40002 -o ec2-52-4-98-110.compute-1.amazonaws.com:8080 -n cs5700cdn.example.com -u shihe -i ../id_rsa
+shihe@login project5$ mkdir test
+shihe@login project5$ cd test/
+shihe@login test$ ls
+shihe@login test$ dig @cs5700cdnproject.ccs.neu.edu -p 40002 cs5700cdn.example.com
+
+; <<>> DiG 9.8.1-P1 <<>> @cs5700cdnproject.ccs.neu.edu -p 40002 cs5700cdn.example.com
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 63511
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;cs5700cdn.example.com.		IN	A
+
+;; ANSWER SECTION:
+cs5700cdn.example.com.	100	IN	A	52.8.12.101
+
+;; Query time: 40 msec
+;; SERVER: 129.10.117.186#40002(129.10.117.186)
+;; WHEN: Thu Apr 30 21:16:45 2015
+;; MSG SIZE  rcvd: 55
+
+shihe@login test$ dig @cs5700cdnproject.ccs.neu.edu -p 40002 cs5700cdn.example.com
+
+; <<>> DiG 9.8.1-P1 <<>> @cs5700cdnproject.ccs.neu.edu -p 40002 cs5700cdn.example.com
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 33294
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;cs5700cdn.example.com.		IN	A
+
+;; ANSWER SECTION:
+cs5700cdn.example.com.	100	IN	A	52.64.63.125
+
+;; Query time: 11 msec
+;; SERVER: 129.10.117.186#40002(129.10.117.186)
+;; WHEN: Thu Apr 30 21:16:48 2015
+;; MSG SIZE  rcvd: 55
+
+shihe@login test$ dig @cs5700cdnproject.ccs.neu.edu -p 40002 cs5700cdn.example.com
+
+; <<>> DiG 9.8.1-P1 <<>> @cs5700cdnproject.ccs.neu.edu -p 40002 cs5700cdn.example.com
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 12152
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;cs5700cdn.example.com.		IN	A
+
+;; ANSWER SECTION:
+cs5700cdn.example.com.	100	IN	A	52.68.12.77
+
+;; Query time: 6 msec
+;; SERVER: 129.10.117.186#40002(129.10.117.186)
+;; WHEN: Thu Apr 30 21:16:50 2015
+;; MSG SIZE  rcvd: 55
+
+shihe@login test$ dig @cs5700cdnproject.ccs.neu.edu -p 40002 cs5700cdn.example.com
+
+; <<>> DiG 9.8.1-P1 <<>> @cs5700cdnproject.ccs.neu.edu -p 40002 cs5700cdn.example.com
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 374
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;cs5700cdn.example.com.		IN	A
+
+;; ANSWER SECTION:
+cs5700cdn.example.com.	100	IN	A	52.68.12.77
+
+;; Query time: 24 msec
+;; SERVER: 129.10.117.186#40002(129.10.117.186)
+;; WHEN: Thu Apr 30 21:16:54 2015
+;; MSG SIZE  rcvd: 55
+
+shihe@login test$ dig @cs5700cdnproject.ccs.neu.edu -p 40002 cs5700cdn.example.com
+
+; <<>> DiG 9.8.1-P1 <<>> @cs5700cdnproject.ccs.neu.edu -p 40002 cs5700cdn.example.com
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 61347
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;cs5700cdn.example.com.		IN	A
+
+;; ANSWER SECTION:
+cs5700cdn.example.com.	100	IN	A	52.74.143.5
+
+;; Query time: 23 msec
+;; SERVER: 129.10.117.186#40002(129.10.117.186)
+;; WHEN: Thu Apr 30 21:16:56 2015
+;; MSG SIZE  rcvd: 55
+
+shihe@login test$ dig @cs5700cdnproject.ccs.neu.edu -p 40002 cs5700cdn.example.com
+
+; <<>> DiG 9.8.1-P1 <<>> @cs5700cdnproject.ccs.neu.edu -p 40002 cs5700cdn.example.com
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 524
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;cs5700cdn.example.com.		IN	A
+
+;; ANSWER SECTION:
+cs5700cdn.example.com.	100	IN	A	52.16.219.28
+
+;; Query time: 12 msec
+;; SERVER: 129.10.117.186#40002(129.10.117.186)
+;; WHEN: Thu Apr 30 21:16:57 2015
+;; MSG SIZE  rcvd: 55
+
+shihe@login test$ dig @cs5700cdnproject.ccs.neu.edu -p 40002 cs5700cdn.example.com
+
+; <<>> DiG 9.8.1-P1 <<>> @cs5700cdnproject.ccs.neu.edu -p 40002 cs5700cdn.example.com
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 14506
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;cs5700cdn.example.com.		IN	A
+
+;; ANSWER SECTION:
+cs5700cdn.example.com.	100	IN	A	52.64.63.125
+
+;; Query time: 4 msec
+;; SERVER: 129.10.117.186#40002(129.10.117.186)
+;; WHEN: Thu Apr 30 21:16:58 2015
+;; MSG SIZE  rcvd: 55
+
+shihe@login test$ dig @cs5700cdnproject.ccs.neu.edu -p 40002 cs5700cdn.example.com
+
+; <<>> DiG 9.8.1-P1 <<>> @cs5700cdnproject.ccs.neu.edu -p 40002 cs5700cdn.example.com
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 40281
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;cs5700cdn.example.com.		IN	A
+
+;; ANSWER SECTION:
+cs5700cdn.example.com.	100	IN	A	52.68.12.77
+
+;; Query time: 17 msec
+;; SERVER: 129.10.117.186#40002(129.10.117.186)
+;; WHEN: Thu Apr 30 21:16:59 2015
+;; MSG SIZE  rcvd: 55
+
+shihe@login test$ dig @cs5700cdnproject.ccs.neu.edu -p 40002 cs5700cdn.example.com
+
+; <<>> DiG 9.8.1-P1 <<>> @cs5700cdnproject.ccs.neu.edu -p 40002 cs5700cdn.example.com
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 42802
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;cs5700cdn.example.com.		IN	A
+
+;; ANSWER SECTION:
+cs5700cdn.example.com.	100	IN	A	52.64.63.125
+
+;; Query time: 4 msec
+;; SERVER: 129.10.117.186#40002(129.10.117.186)
+;; WHEN: Thu Apr 30 21:17:00 2015
+;; MSG SIZE  rcvd: 55
+
+shihe@login test$ dig @cs5700cdnproject.ccs.neu.edu -p 40002 cs5700cdn.example.com
+
+; <<>> DiG 9.8.1-P1 <<>> @cs5700cdnproject.ccs.neu.edu -p 40002 cs5700cdn.example.com
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 54142
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;cs5700cdn.example.com.		IN	A
+
+;; ANSWER SECTION:
+cs5700cdn.example.com.	100	IN	A	54.94.214.108
+
+;; Query time: 5 msec
+;; SERVER: 129.10.117.186#40002(129.10.117.186)
+;; WHEN: Thu Apr 30 21:17:04 2015
+;; MSG SIZE  rcvd: 55
+
+shihe@login test$ dig @cs5700cdnproject.ccs.neu.edu -p 40002 cs5700cdn.example.com
+
+; <<>> DiG 9.8.1-P1 <<>> @cs5700cdnproject.ccs.neu.edu -p 40002 cs5700cdn.example.com
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 24879
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;cs5700cdn.example.com.		IN	A
+
+;; ANSWER SECTION:
+cs5700cdn.example.com.	100	IN	A	52.28.48.84
+
+;; Query time: 4 msec
+;; SERVER: 129.10.117.186#40002(129.10.117.186)
+;; WHEN: Thu Apr 30 21:17:25 2015
+;; MSG SIZE  rcvd: 55
+
+shihe@login test$ dig @cs5700cdnproject.ccs.neu.edu -p 40002 cs5700cdn.example.com
+
+; <<>> DiG 9.8.1-P1 <<>> @cs5700cdnproject.ccs.neu.edu -p 40002 cs5700cdn.example.com
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 14210
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;cs5700cdn.example.com.		IN	A
+
+;; ANSWER SECTION:
+cs5700cdn.example.com.	100	IN	A	52.11.8.29
+
+;; Query time: 5 msec
+;; SERVER: 129.10.117.186#40002(129.10.117.186)
+;; WHEN: Thu Apr 30 21:18:02 2015
+;; MSG SIZE  rcvd: 55
+
+shihe@login test$ ls      
+shihe@login test$ cd ..
+shihe@login project5$ ls
+client.py     DNSPacket.py  ec2-hosts.txt  httpserver  README	       stopCDN
+deployCDN     dns.py	    http_cache.py  Makefile    removecache.sh  test
+dns_cache.py  dnsserver     http.py	   mapper.py   runCDN
+shihe@login project5$ cat ec2-hosts.txt 
+ec2-52-4-98-110.compute-1.amazonaws.com	Origin server (running Web server on port 8080)
+ec2-52-0-73-113.compute-1.amazonaws.com		N. Virginia
+ec2-52-16-219-28.eu-west-1.compute.amazonaws.com	Ireland
+ec2-52-11-8-29.us-west-2.compute.amazonaws.com	Oregon, USA
+ec2-52-8-12-101.us-west-1.compute.amazonaws.com	N. California, USA
+ec2-52-28-48-84.eu-central-1.compute.amazonaws.com	Frankfurt, Germany
+ec2-52-68-12-77.ap-northeast-1.compute.amazonaws.com	Tokyo, Japan
+ec2-52-74-143-5.ap-southeast-1.compute.amazonaws.com	Singapore
+ec2-52-64-63-125.ap-southeast-2.compute.amazonaws.com	Sydney, Australia
+ec2-54-94-214-108.sa-east-1.compute.amazonaws.com	Sao Paulo, Brazil
+shihe@login project5$ ssh shihe@ec2-52-0-73-113.compute-1.amazonaws.com
+Permission denied (publickey).
+shihe@login project5$ ssh -i ../id_rsa shihe@ec2-52-0-73-113.compute-1.amazonaws.com
+Welcome to Ubuntu 12.04.3 LTS (GNU/Linux 3.2.0-60-virtual x86_64)
+
+ * Documentation:  https://help.ubuntu.com/
+
+ System information disabled due to load higher than 1.0
+
+  Get cloud support with Ubuntu Advantage Cloud Guest:
+    http://www.ubuntu.com/business/services/cloud
+
+  Use Juju to deploy your cloud instances and workloads:
+    https://juju.ubuntu.com/#cloud-precise
+
+189 packages can be updated.
+131 updates are security updates.
+
+New release '14.04.2 LTS' available.
+Run 'do-release-upgrade' to upgrade to it.
+
+*** /dev/xvda1 will be checked for errors at next reboot ***
+
+Last login: Thu Apr 30 17:05:53 2015 from 129.10.18.37
+shihe@ip-172-31-7-167:~$ /usr/bin/scamper -c 'ping -c 3' -i 8.8.8.8
+ping 172.31.7.167 to 8.8.8.8: 84 byte packets
+84 bytes from 8.8.8.8, seq=0 ttl=43 time=9.162 ms
+84 bytes from 8.8.8.8, seq=1 ttl=43 time=9.201 ms
+84 bytes from 8.8.8.8, seq=2 ttl=43 time=9.255 ms
+--- 8.8.8.8 ping statistics ---
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 309382.768/3698150.000/1517156.128/8000.008 ms
+shihe@ip-172-31-7-167:~$ /usr/bin/scamper -c 'ping -c 1' -i 129.10.117.100
+ping 172.31.7.167 to 129.10.117.100: 84 byte packets
+84 bytes from 129.10.117.100, seq=0 ttl=50 time=12.892 ms
+--- 129.10.117.100 ping statistics ---
+1 packets transmitted, 1 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 4200776.592/2129577.872/2450278.176/129000.010 ms
+shihe@ip-172-31-7-167:~$ logout
+Connection to ec2-52-0-73-113.compute-1.amazonaws.com closed.
+shihe@login project5$ dig @cs5700cdnproject.ccs.neu.edu -p 40002 cs5700cdn.example.com
+
+; <<>> DiG 9.8.1-P1 <<>> @cs5700cdnproject.ccs.neu.edu -p 40002 cs5700cdn.example.com
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 61602
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;cs5700cdn.example.com.		IN	A
+
+;; ANSWER SECTION:
+cs5700cdn.example.com.	100	IN	A	52.28.48.84
+
+;; Query time: 5 msec
+;; SERVER: 129.10.117.186#40002(129.10.117.186)
+;; WHEN: Thu Apr 30 21:20:52 2015
+;; MSG SIZE  rcvd: 55
+
+shihe@login project5$ ls
+client.py     DNSPacket.py  ec2-hosts.txt  httpserver  README	       stopCDN
+deployCDN     dns.py	    http_cache.py  Makefile    removecache.sh  test
+dns_cache.py  dnsserver     http.py	   mapper.py   runCDN
+shihe@login project5$ cat ec2-hosts.txt 
+ec2-52-4-98-110.compute-1.amazonaws.com	Origin server (running Web server on port 8080)
+ec2-52-0-73-113.compute-1.amazonaws.com		N. Virginia
+ec2-52-16-219-28.eu-west-1.compute.amazonaws.com	Ireland
+ec2-52-11-8-29.us-west-2.compute.amazonaws.com	Oregon, USA
+ec2-52-8-12-101.us-west-1.compute.amazonaws.com	N. California, USA
+ec2-52-28-48-84.eu-central-1.compute.amazonaws.com	Frankfurt, Germany
+ec2-52-68-12-77.ap-northeast-1.compute.amazonaws.com	Tokyo, Japan
+ec2-52-74-143-5.ap-southeast-1.compute.amazonaws.com	Singapore
+ec2-52-64-63-125.ap-southeast-2.compute.amazonaws.com	Sydney, Australia
+ec2-54-94-214-108.sa-east-1.compute.amazonaws.com	Sao Paulo, Brazil
+shihe@login project5$ ./deployCDN -p 40024 -o ec2-52-4-98-110.compute-1.amazonaws.com:8080 -n cs5700cdn.example.com -u shihe -i ../id_rsa
+shihe@login project5$ ./runCDN -p 40002 -o ec2-52-4-98-110.compute-1.amazonaws.com:8080 -n cs5700cdn.example.com -u shihe -i ../id_rsa
+^C
+shihe@login project5$ ./runCDN -p 40024 -o ec2-52-4-98-110.compute-1.amazonaws.com:8080 -n cs5700cdn.example.com -u shihe -i ../id_rsa
+shihe@login project5$ cd test/
+shihe@login test$ ls
+shihe@login test$ dig @cs5700cdnproject.ccs.neu.edu -p 40024 cs5700cdn.example.com
+
+; <<>> DiG 9.8.1-P1 <<>> @cs5700cdnproject.ccs.neu.edu -p 40024 cs5700cdn.example.com
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 42640
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;cs5700cdn.example.com.		IN	A
+
+;; ANSWER SECTION:
+cs5700cdn.example.com.	100	IN	A	52.64.63.125
+
+;; Query time: 14 msec
+;; SERVER: 129.10.117.186#40024(129.10.117.186)
+;; WHEN: Thu Apr 30 21:29:00 2015
+;; MSG SIZE  rcvd: 55
+
+shihe@login test$ dig @cs5700cdnproject.ccs.neu.edu -p 40024 cs5700cdn.example.com
+
+; <<>> DiG 9.8.1-P1 <<>> @cs5700cdnproject.ccs.neu.edu -p 40024 cs5700cdn.example.com
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 5562
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;cs5700cdn.example.com.		IN	A
+
+;; ANSWER SECTION:
+cs5700cdn.example.com.	100	IN	A	52.0.73.113
+
+;; Query time: 12 msec
+;; SERVER: 129.10.117.186#40024(129.10.117.186)
+;; WHEN: Thu Apr 30 21:29:02 2015
+;; MSG SIZE  rcvd: 55
+
+shihe@login test$ dig @cs5700cdnproject.ccs.neu.edu -p 40024 cs5700cdn.example.com
+
+; <<>> DiG 9.8.1-P1 <<>> @cs5700cdnproject.ccs.neu.edu -p 40024 cs5700cdn.example.com
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 20675
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;cs5700cdn.example.com.		IN	A
+
+;; ANSWER SECTION:
+cs5700cdn.example.com.	100	IN	A	52.0.73.113
+
+;; Query time: 41 msec
+;; SERVER: 129.10.117.186#40024(129.10.117.186)
+;; WHEN: Thu Apr 30 21:29:04 2015
+;; MSG SIZE  rcvd: 55
+
+shihe@login test$ dig @cs5700cdnproject.ccs.neu.edu -p 40024 cs5700cdn.example.com
+
+; <<>> DiG 9.8.1-P1 <<>> @cs5700cdnproject.ccs.neu.edu -p 40024 cs5700cdn.example.com
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 50650
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;cs5700cdn.example.com.		IN	A
+
+;; ANSWER SECTION:
+cs5700cdn.example.com.	100	IN	A	52.0.73.113
+
+;; Query time: 54 msec
+;; SERVER: 129.10.117.186#40024(129.10.117.186)
+;; WHEN: Thu Apr 30 21:29:04 2015
+;; MSG SIZE  rcvd: 55
+
+shihe@login test$ dig @cs5700cdnproject.ccs.neu.edu -p 40024 cs5700cdn.example.com
+
+; <<>> DiG 9.8.1-P1 <<>> @cs5700cdnproject.ccs.neu.edu -p 40024 cs5700cdn.example.com
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 11277
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;cs5700cdn.example.com.		IN	A
+
+;; ANSWER SECTION:
+cs5700cdn.example.com.	100	IN	A	52.0.73.113
+
+;; Query time: 26 msec
+;; SERVER: 129.10.117.186#40024(129.10.117.186)
+;; WHEN: Thu Apr 30 21:29:06 2015
+;; MSG SIZE  rcvd: 55
+
+shihe@login test$ 
+shihe@login test$ dig @cs5700cdnproject.ccs.neu.edu -p 40024 cs5700cdn.example.com
+
+; <<>> DiG 9.8.1-P1 <<>> @cs5700cdnproject.ccs.neu.edu -p 40024 cs5700cdn.example.com
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 39864
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;cs5700cdn.example.com.		IN	A
+
+;; ANSWER SECTION:
+cs5700cdn.example.com.	100	IN	A	52.0.73.113
+
+;; Query time: 19 msec
+;; SERVER: 129.10.117.186#40024(129.10.117.186)
+;; WHEN: Thu Apr 30 21:29:12 2015
+;; MSG SIZE  rcvd: 55
+
+shihe@login test$ vim gettest.py
+shihe@login test$ cp ../ec2-hosts.txt .
+shihe@login test$ ls
+ec2-hosts.txt  gettest.py
+shihe@login test$ chmod +x gettest.py 
+shihe@login test$ ./gettest.py 
+server
+(running
+Web
+server
+on
+port
+8080)
+Ireland
+Oregon,
+USA
+N.
+California,
+USA
+Frankfurt,
+Germany
+Tokyo,
+Japan
+Singapore
+Sydney,
+Australia
+Sao
+Paulo,
+Brazil
+shihe@login test$ ls
+ec2-hosts.txt  gettest.py
+shihe@login test$ vim gettest.py 
+shihe@login test$ ./gettest.py 
+ec2-52-0-73-113.compute-1.amazonaws.com
+ec2-52-16-219-28.eu-west-1.compute.amazonaws.com
+ec2-52-11-8-29.us-west-2.compute.amazonaws.com
+ec2-52-8-12-101.us-west-1.compute.amazonaws.com
+ec2-52-28-48-84.eu-central-1.compute.amazonaws.com
+ec2-52-68-12-77.ap-northeast-1.compute.amazonaws.com
+ec2-52-74-143-5.ap-southeast-1.compute.amazonaws.com
+ec2-52-64-63-125.ap-southeast-2.compute.amazonaws.com
+ec2-54-94-214-108.sa-east-1.compute.amazonaws.com
+shihe@login test$ vim gettest.py 
+shihe@login test$ ./gettest.py 
+--2015-04-30 21:32:26--  http://ec2-52-0-73-113.compute-1.amazonaws.com/
+Resolving ec2-52-0-73-113.compute-1.amazonaws.com (ec2-52-0-73-113.compute-1.amazonaws.com)... 52.0.73.113
+Connecting to ec2-52-0-73-113.compute-1.amazonaws.com (ec2-52-0-73-113.compute-1.amazonaws.com)|52.0.73.113|:80... ^Cshihe@login test$ vim gettest.py 
+shihe@login test$ ./gettest.py 
+--2015-04-30 21:32:45--  http://ec2-52-0-73-113.compute-1.amazonaws.com:40024/
+Resolving ec2-52-0-73-113.compute-1.amazonaws.com (ec2-52-0-73-113.compute-1.amazonaws.com)... 52.0.73.113
+Connecting to ec2-52-0-73-113.compute-1.amazonaws.com (ec2-52-0-73-113.compute-1.amazonaws.com)|52.0.73.113|:40024... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: unspecified [text/html]
+Saving to: `index.html'
+
+    [ <=>                                   ] 14,600      --.-K/s   in 0.005s  
+
+2015-04-30 21:32:46 (2.87 MB/s) - `index.html' saved [14600]
+
+--2015-04-30 21:32:46--  http://ec2-52-16-219-28.eu-west-1.compute.amazonaws.com:40024/
+Resolving ec2-52-16-219-28.eu-west-1.compute.amazonaws.com (ec2-52-16-219-28.eu-west-1.compute.amazonaws.com)... 52.16.219.28
+Connecting to ec2-52-16-219-28.eu-west-1.compute.amazonaws.com (ec2-52-16-219-28.eu-west-1.compute.amazonaws.com)|52.16.219.28|:40024... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: unspecified [text/html]
+Saving to: `index.html.1'
+
+    [ <=>                                   ] 14,600      --.-K/s   in 0.09s   
+
+2015-04-30 21:32:48 (167 KB/s) - `index.html.1' saved [14600]
+
+--2015-04-30 21:32:48--  http://ec2-52-11-8-29.us-west-2.compute.amazonaws.com:40024/
+Resolving ec2-52-11-8-29.us-west-2.compute.amazonaws.com (ec2-52-11-8-29.us-west-2.compute.amazonaws.com)... 52.11.8.29
+Connecting to ec2-52-11-8-29.us-west-2.compute.amazonaws.com (ec2-52-11-8-29.us-west-2.compute.amazonaws.com)|52.11.8.29|:40024... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: unspecified [text/html]
+Saving to: `index.html.2'
+
+    [ <=>                                   ] 14,600      --.-K/s   in 0.07s   
+
+2015-04-30 21:32:51 (192 KB/s) - `index.html.2' saved [14600]
+
+--2015-04-30 21:32:51--  http://ec2-52-8-12-101.us-west-1.compute.amazonaws.com:40024/
+Resolving ec2-52-8-12-101.us-west-1.compute.amazonaws.com (ec2-52-8-12-101.us-west-1.compute.amazonaws.com)... 52.8.12.101
+Connecting to ec2-52-8-12-101.us-west-1.compute.amazonaws.com (ec2-52-8-12-101.us-west-1.compute.amazonaws.com)|52.8.12.101|:40024... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: unspecified [text/html]
+Saving to: `index.html.3'
+
+    [ <=>                                   ] 14,600      --.-K/s   in 0.08s   
+
+2015-04-30 21:32:54 (176 KB/s) - `index.html.3' saved [14600]
+
+--2015-04-30 21:32:54--  http://ec2-52-28-48-84.eu-central-1.compute.amazonaws.com:40024/
+Resolving ec2-52-28-48-84.eu-central-1.compute.amazonaws.com (ec2-52-28-48-84.eu-central-1.compute.amazonaws.com)... 52.28.48.84
+Connecting to ec2-52-28-48-84.eu-central-1.compute.amazonaws.com (ec2-52-28-48-84.eu-central-1.compute.amazonaws.com)|52.28.48.84|:40024... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: unspecified [text/html]
+Saving to: `index.html.4'
+
+    [ <=>                                   ] 14,600      --.-K/s   in 0.08s   
+
+2015-04-30 21:32:56 (170 KB/s) - `index.html.4' saved [14600]
+
+--2015-04-30 21:32:57--  http://ec2-52-68-12-77.ap-northeast-1.compute.amazonaws.com:40024/
+Resolving ec2-52-68-12-77.ap-northeast-1.compute.amazonaws.com (ec2-52-68-12-77.ap-northeast-1.compute.amazonaws.com)... 52.68.12.77
+Connecting to ec2-52-68-12-77.ap-northeast-1.compute.amazonaws.com (ec2-52-68-12-77.ap-northeast-1.compute.amazonaws.com)|52.68.12.77|:40024... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: unspecified [text/html]
+Saving to: `index.html.5'
+
+    [ <=>                                   ] 14,600      80.0K/s   in 0.2s    
+
+2015-04-30 21:33:00 (80.0 KB/s) - `index.html.5' saved [14600]
+
+--2015-04-30 21:33:00--  http://ec2-52-74-143-5.ap-southeast-1.compute.amazonaws.com:40024/
+Resolving ec2-52-74-143-5.ap-southeast-1.compute.amazonaws.com (ec2-52-74-143-5.ap-southeast-1.compute.amazonaws.com)... 52.74.143.5
+Connecting to ec2-52-74-143-5.ap-southeast-1.compute.amazonaws.com (ec2-52-74-143-5.ap-southeast-1.compute.amazonaws.com)|52.74.143.5|:40024... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: unspecified [text/html]
+Saving to: `index.html.6'
+
+    [  <=>                                  ] 14,600      58.5K/s   in 0.2s    
+
+2015-04-30 21:33:00 (58.5 KB/s) - `index.html.6' saved [14600]
+
+--2015-04-30 21:33:00--  http://ec2-52-64-63-125.ap-southeast-2.compute.amazonaws.com:40024/
+Resolving ec2-52-64-63-125.ap-southeast-2.compute.amazonaws.com (ec2-52-64-63-125.ap-southeast-2.compute.amazonaws.com)... 52.64.63.125
+Connecting to ec2-52-64-63-125.ap-southeast-2.compute.amazonaws.com (ec2-52-64-63-125.ap-southeast-2.compute.amazonaws.com)|52.64.63.125|:40024... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: unspecified [text/html]
+Saving to: `index.html.7'
+
+    [  <=>                                  ] 14,600      63.2K/s   in 0.2s    
+
+2015-04-30 21:33:04 (63.2 KB/s) - `index.html.7' saved [14600]
+
+--2015-04-30 21:33:04--  http://ec2-54-94-214-108.sa-east-1.compute.amazonaws.com:40024/
+Resolving ec2-54-94-214-108.sa-east-1.compute.amazonaws.com (ec2-54-94-214-108.sa-east-1.compute.amazonaws.com)... 54.94.214.108
+Connecting to ec2-54-94-214-108.sa-east-1.compute.amazonaws.com (ec2-54-94-214-108.sa-east-1.compute.amazonaws.com)|54.94.214.108|:40024... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: unspecified [text/html]
+Saving to: `index.html.8'
+
+    [ <=>                                   ] 14,600      84.8K/s   in 0.2s    
+
+2015-04-30 21:33:07 (84.8 KB/s) - `index.html.8' saved [14600]
+
+shihe@login test$ ls
+ec2-hosts.txt  index.html.1  index.html.4  index.html.7
+gettest.py     index.html.2  index.html.5  index.html.8
+index.html     index.html.3  index.html.6
+shihe@login test$ diff index.html index.html.1
+172c172
+< 										<li id="footer-info-viewcount">This page has been accessed 46,470 times.</li>
+---
+> 										<li id="footer-info-viewcount">This page has been accessed 46,475 times.</li>
+193c193
+< <!-- Served in 0.227 secs. -->
+---
+> <!-- Served in 0.245 secs. -->
+shihe@login test$ ls
+ec2-hosts.txt  index.html.1  index.html.4  index.html.7
+gettest.py     index.html.2  index.html.5  index.html.8
+index.html     index.html.3  index.html.6
+shihe@login test$ rm index.html*
+shihe@login test$ ls
+ec2-hosts.txt  gettest.py
+shihe@login test$ ls
+ec2-hosts.txt  gettest.py  test_httpserver.py
+shihe@login test$ vim test_httpserver.py 
+shihe@login test$ dig @cs5700cdnproject.ccs.neu.edu -p 40024 cs5700cdn.example.com
+
+; <<>> DiG 9.8.1-P1 <<>> @cs5700cdnproject.ccs.neu.edu -p 40024 cs5700cdn.example.com
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 21144
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;cs5700cdn.example.com.		IN	A
+
+;; ANSWER SECTION:
+cs5700cdn.example.com.	100	IN	A	52.0.73.113
+
+;; Query time: 5 msec
+;; SERVER: 129.10.117.186#40024(129.10.117.186)
+;; WHEN: Thu Apr 30 21:35:23 2015
+;; MSG SIZE  rcvd: 55
+
+shihe@login test$ ls
+ec2-hosts.txt  gettest.py  test_httpserver.py
+shihe@login test$ vim test_httpserver.py 
+
+  1 #!/usr/bin/python
+  2 import random
+  3 import urllib
+  4 
+  5 
+  6 def load_sites():
+  7     all_sites = []
+  8     old = "ec2-52-4-98-110.compute-1.amazonaws.com:8080"
+  9     new = "52.0.73.113:40024"
+ 10     f = open("origin_sites", "r")
+ 11     for line in f:
+ 12         all_sites.append(line.strip("\n").replace(old, new))
+ 13     return all_sites
+ 14 
+ 15 
+ 16 def test_server_by_enter():
+ 17     while True:
+ 18         var = raw_input("press enter to send a request: ")
+ 19         if var == "exit":
+ 20             exit(1)
+ 21         if var in all_sites:
+ 22             urllib.urlopen(var)
+ 23             print var + " opened"
+-- INSERT --                                                  9,29          Top

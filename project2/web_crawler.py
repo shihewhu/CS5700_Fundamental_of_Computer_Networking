@@ -1,0 +1,336 @@
+#!/usr/bin/python
+import socket
+import urlparse 
+import re
+import time
+import sys
+import threading
+#global value
+#server_name: the server addresses which we establish the socket with
+server_name = urlparse.urlparse("http://cs5700sp15.ccs.neu.edu/fakebook/").netloc
+#port:the port used to connect to the server, here is 80(http default)
+port = 80
+#threadLock: the lock used to lock and release thread when it needs to visit some shared source
+threadLock = threading.Lock()
+#flag: the list used to store the flag the crawler found
+flag = []
+# stack: the stack used to implement the DFS traversal initialized with the home page path
+stack = []
+stack.append("/")
+# visited: the list used to store the path crawler has visited
+visited = []
+# username/password: two value used to login the account
+username = sys.argv[1]
+password = sys.argv[2]
+
+# crawlerLogin: a class which define several method used to login the fakebook
+class crawlerLogin:
+	# firstGet: a method to send HTTP Get request to the server without session id.
+	# if all the process is correct it will receive the status 200 and the session id and crsftoken
+	# the crawler uses these two cookies to send the post request to the server to login
+	def firstGet(self, path):
+		# initialize the return value with empty
+		data = ""
+		try:
+			# create a socket s
+			s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+			s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) 
+			s.connect((server_name,port))
+			# create the GET request
+			GET_res = 'GET '
+			GET_res += path
+			GET_res += ' HTTP/1.0\r\n\r\n'
+			# send the request
+			s.send(GET_res)
+			# recieve the msg return by the server
+			data = self.recv_timeout(s)
+			s.close()
+		finally:
+			# if the process is correct return the recieved data, otherwise return empty string for error solution
+			return data
+	# firstPost: a method to send HTTP POST request to the server with the cookies and username, password and crsfmiddlewaretoken
+	# to submit the form for the server authication. If the process is correct, the server should return status 302 for redirecting
+	# with the session id which is used for the following GET request sending. 
+	def firstPost(self,path,username,password,csrfmiddlewaretoken,keys,cookies):
+		# initialize the return value with empty string
+		data = ""
+		try:
+			# create a new socket
+			s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+			s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) 
+			s.connect((server_name,port))
+			# build the POST header with the cookies
+			POST_res = 'POST /accounts/login/ HTTP/1.0\r\n'
+			POST_res += 'Connection: keep-alive\r\n'
+			POST_res += 'Content-Length: 95\r\n'
+			POST_res += 'Cache-Control: max-age=0\r\n'
+			POST_res += 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8\r\n'
+			POST_res += 'Origin: http://cs5700sp15.ccs.neu.edu\r\n'
+			POST_res += 'User-Agent: HTTPTool/1.0\r\n'
+			POST_res += 'Content-Type: application/x-www-form-urlencoded\r\n'
+			POST_res += 'Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.6,en;q=0.4,zh-TW;q=0.2\r\n'
+			POST_res += 'Cookie: '
+			# insert the cookies into the Post Header
+			for i in range(0, len(keys)-1):
+				POST_res += keys[i] + '=' + cookies[i] + '; '
+			POST_res += keys[len(keys)-1] + '=' + cookies[len(keys)-1] + '\r\n\r\n'
+			# combine the form to be submitted after the header
+			POST_res += 'username='+username+'&password='+password+'&csrfmiddlewaretoken='+csrfmiddlewaretoken+'&next=\r\n\r\n'
+			# send the request
+			s.send(POST_res)
+			# receive the return data from the server.
+			data = self.recv_timeout(s)
+			s.close()
+		finally:
+			# return the data, if the process is correct, the data will be the 		
+			return data
+	# recv_timeout: a method used to receive data from the server. This method will stop when the data is all received or the time 
+	# to wait the server exceeds the timeout value. It is used to deal with the bad network situation and the data is too long to receive
+	# only once. The origin of this method is from the internet. 
+	def recv_timeout(self,s,timeout=1.5):
+		s.setblocking(0)
+		#total data partwise in an array
+		final_data=[]
+		# initialize the data with empty string
+		data='' 
+		# start time
+		t0=time.time()
+		while True:
+			# break condition
+			if final_data and time.time()-t0 > timeout:
+				break
+				# wait for timeout twice, iff exceeds, the method is over.
+			elif time.time() - t0 > timeout*2:
+				break 
+				#recv something
+			try:
+				data = s.recv(8192)
+				if data:
+					final_data.append(data)
+					#change the beginning time for measurement
+					t0=time.time()
+				else:
+				#sleep for sometime to indicate a gap
+					time.sleep(0.3)
+			except:
+				pass
+				#join all parts to make final string
+		return ''.join(final_data)
+	# login: a method used to login into the fakebook. It first sends a HTTP GET request to the login path to
+	# get the login session id and csrftoken. Then, the crawler uses there cookies to send the post request with
+	# login information form. Then the crawler will get the session id used for the following GET request. If after
+	# the first GET, the crawler can't receive the 200 page, it will do the login again. If the crawler fails 10 times,
+	# it will exit
+	def login(self,count):
+		print "logining"
+		start_path = "/accounts/login/"
+		# send the first GET request
+		content = self.firstGet(start_path)
+		# if first GET fails, login again
+		if content == "":
+			self.login(count + 1)
+		# get the status, cookies, keys, crsftoken from the received page using re
+		status = re.findall(r"HTTP/1.1 (.*?) OK",content)
+		cookies = re.findall(r"Set-Cookie: [^=]*=(.*?);",content)
+		keys = re.findall(r"Set-Cookie: (.*?)=",content)
+		value = re.findall(r"name='csrfmiddlewaretoken' value=\'(.*?)\'",content)
+		# if the received page is 200, start the multithread crawling
+		if '200' in status:
+			post_recv = self.firstPost(start_path,username,password,value[0],keys,cookies)
+			return post_recv
+		# if the received page is not 200, login again
+		else:
+			if count < 10:
+				time.sleep(5)
+				self.login(count + 1)
+			else:
+				sys.exit()
+	# crawler_start: a method used to start the crawler from the start path. It will first try
+	# to login. if the login succeeds, it will start multthread crawlering the fakebook page and
+	# all the url inside the page using DFS
+	def crawler_start(self, start_path): 
+		print "start login"
+		count = 0
+		# login
+		page = self.login(count)
+		# get the status, cookies, keys from the page
+		status = re.findall(r"HTTP/1.1 (.*?) ",page)
+		cookies = re.findall(r"Set-Cookie: [^=]*=(.*?);",page)
+		keys = re.findall(r"Set-Cookie: (.*?)=",page)
+		# if login succeds, start the multithread crawlering
+		if '302' in status:
+			print "login succeeds"
+			return self.start_multithread_search(cookies,keys)
+		else:
+			print "error, please try again"
+	
+	def start_multithread_search(self, cookies, keys):
+		# initialize the threads with empty
+		threads = []
+		# create 100 threads
+		for i in range(0, 101):
+			thread = myThread(cookies, keys)
+			threads.append(thread)
+		# start the first threads
+		threads[0].start()
+		print "thread 1 starts"
+		time.sleep(3)
+		# start all threads
+		idx = 2
+		for thread in threads[1:]:
+			print "thread %s starts"%(idx)
+			thread.start()
+			idx = idx + 1
+		while True:
+			# if the crawler found all the flags or visited all the rul, close all the threads
+			if len(flag) == 5 or len(stack) == 0:
+				for t in threads:
+					t.join()
+					print "search over"
+				break
+		return flag
+
+
+# myThread: a class used to multithread crawl. 
+class myThread(threading.Thread):
+	def __init__(self, cookies, keys):
+		super(myThread, self).__init__()
+		self.stack = stack
+		self.visited = visited
+		self.cookies = cookies
+		self.keys = keys
+	# try_find_flag: a method used to find the flag inside the page.
+	def try_find_flag(self, page):
+		maybe_flag = re.findall(r"FLAG: (.*?)<",page)
+		return maybe_flag
+	# recv_timeout: a method used to receive data from the server. This method will stop when the data is all received or the time 
+	# to wait the server exceeds the timeout value. It is used to deal with the bad network situation and the data is too long to receive
+	# only once. The origin of this method is from the internet. 
+	def recv_timeout(self,s,timeout=1.5):
+		s.setblocking(0)
+		#total data partwise in an array
+		final_data=[]
+		# initialize the data with empty string
+		data='' 
+		# start time
+		t0=time.time()
+		while True:
+			# break condition
+			if final_data and time.time()-t0 > timeout:
+				break
+				# wait for timeout twice, iff exceeds, the method is over.
+			elif time.time() - t0 > timeout*2:
+				break 
+				#recv something
+			try:
+				data = s.recv(8192)
+				if data:
+					final_data.append(data)
+					#change the beginning time for measurement
+					t0=time.time()
+				else:
+				#sleep for sometime to indicate a gap
+					time.sleep(0.3)
+			except:
+				pass
+				#join all parts to make final string
+		return ''.join(final_data)
+
+	# get: a method used to send the get request with the session id
+	def get(self,path,cookies,keys):
+		# initialize the return data with empty string
+		data = ""
+		try:
+			# create the socket
+			s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+			s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) 
+			s.connect((server_name,port))
+			# build the GET request header
+			GET_res = 'GET '
+			GET_res += path
+			GET_res += ' HTTP/1.0\r\n'
+			GET_res += 'Cookie: '
+			# combine the session id
+			for i in range(0, len(keys)-1):
+				GET_res += keys[i] + '=' + cookies[i] + '; '
+			GET_res += keys[len(keys)-1] + '=' + cookies[len(keys)-1] + '\r\n\r\n'
+			# send the get request
+			s.send(GET_res)
+			# recieve the data
+			data = self.recv_timeout(s)
+			s.close()
+		finally:
+			return data
+	# run: a method to run the thread
+	def run(self):
+		while True:
+			# lock the thread to visit the stack
+			threadLock.acquire()
+			# if stack is empty, release the lock and wait for other thread to push the url into the stack
+			count = 0
+			while len(stack) == 0 and count < 10:
+				threadLock.release()
+				time.sleep(10)
+				count = count + 1
+				threadLock.acquire()
+			if count == 10 or len(flag) == 5:
+				threadLock.release()
+				break
+			# pop the top stack url to crawl
+			cur_url = self.stack.pop()
+			# push the cur url into the visited list
+			visited.append(cur_url)
+			threadLock.release()
+			# get the page
+			page = self.get(cur_url, self.cookies,self.keys)
+			# get the status of the page
+			status = re.findall(r"HTTP/1.1 (.*?) ",page)
+			# if the page status is 200 or 302, try to find the flag inside the page, if the flag is inside the page
+			# append it into the flag list. then crawl all the url inside the page and push them into the stack 
+			if '200' in status or '302' in status:
+				maybe_flag = self.try_find_flag(page)
+				threadLock.acquire()
+				if len(maybe_flag) != 0 and maybe_flag[0] not in flag:
+					flag.append(maybe_flag[0])
+				threadLock.release()
+				paths = re.findall(r"<a href=\"(.*?)\">[^<]*</a>",page)
+				threadLock.acquire()
+				for path in paths:
+					if path not in visited and path not in stack and '/fakebook/' in path:
+						stack.append(path)
+				threadLock.release()
+			# if the page status is 500, push the url into stack again to visit again
+			elif '500' in status:
+				threadLock.acquire()
+				stack.append(cur_url)
+				threadLock.release()
+			elif '301' in status:
+				loc = re.findall(r"Location: (.*?)\r\n", page)
+				threadLock.acquire()
+				stack.append(loc_path)
+				threadLock.release()
+			# if the crawler gets all five flags, exit the process. otherwise, iterates. 
+			threadLock.acquire()
+			flag_len = len(flag)
+			stack_len = len(stack)
+			# print flag
+			if flag_len == 5:
+				threadLock.release()
+				break
+			elif flag_len < 5 and stack_len == 0:
+				threadLock.release()
+				time.sleep(4)
+			else:
+				threadLock.release()
+		# print "thread over"		
+
+
+
+
+ws = crawlerLogin()
+t0 = time.time()
+flags = ws.crawler_start("/fakebook/")
+cost = time.time() - t0
+print cost
+for flag in flags:
+	print "FLAG: " + flag

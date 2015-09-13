@@ -1,0 +1,42 @@
+dir descpr:
+1. "output.txt" : the output of grepForStuff copy.sh
+2. "PII.txt" : the output of grepForStuff copy.sh which just search location information
+3. grepForStuff copy.sh : the srcipt used to fetch the PII
+4. ip_to_identity.txt : the output of serverContacted.sh
+5. serverContacted.sh : the script used to parse the data
+6. serverContacted : the output of parseapp.sh
+7. serverRecordCount : the output of count.py
+8. count.py : the python programm to count the connections to each website
+
+
+I first made all the *.clr file into same root dir, Then I used tools to parse them.
+
+
+Task 1: What are your apps doing with the network?
+./serverContacted data -> ip_to_Identity.txt
+./parseapp.sh -> serverContacted
+./count.py -> serverRecordCount
+
+I modified the script the project provided name "serverContacted.sh" and use it to make a file called ip_to_Identity.txt. Then I wrote a script
+to parse all the data(parseapp.sh). Finally, I wrote a python program to count the connections to each server and outputed as a file.
+From the file, I found some surprising data. 
+1. I never visited taobao(chinese version ebay) and didn't install taobao app on my iphone. However, I found the connections to taobao server.
+Perhaps some app will redirect to this server perhaps the wechat(chinese version whatsapp).
+2. I often used zhihu. However, When I used whois [ip of zhihu], it gave me another sever name. I thought zhihu.com rent CHINA-21ViaNet-Inc severs.
+3. I found some strange severs I connected. i.e. shanghaiwangsukejigufenyouxiang, this address is 163.com email server. I didn't know why they named it like this.
+4. I found a lot of akamai and CDN networks. It is reasonable, because we are using CDN all the time.
+To conclude, Although I use my iphone frenquently, I cannot find traffic which is not legitimate. I didn't jailbreak my iphone and all the apps were downloaded from the app store, I think they are relatively secure. 
+
+
+
+Task 2: Identify PII
+./grepForStuff copy.sh data -> output.txt
+
+To this task, I modified the grepStuff.sh. I modified all the parameters in this script and add a loop. 
+In the scrip I grep all the credit card, username, etc. PII information and output the information in a 
+file. 
+The leak is my device information.
+   1 Phone=e.isIPHON
+The implication:
+some app is transmiting the device type to the server without encryption.
+Because I am using IOS 8. Consider it is not a open source system, and all app can only be fetched from the app store. 

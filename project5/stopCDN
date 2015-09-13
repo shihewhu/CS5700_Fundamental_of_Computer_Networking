@@ -1,0 +1,38 @@
+#!/bin/bash
+OPTIND=1
+port=""
+origin=""
+name=""
+username=""
+keyfile=""
+# parse all the option and option argument
+while getopts "p:o:n:u:i:" opts; do
+	case $opts in
+		p) port=$OPTARG
+			;;
+		o) origin=$OPTARG
+			;;
+		n) name=$OPTARG
+			;;
+		u) username=$OPTARG
+			;;
+		i) keyfile=$OPTARG
+			;;
+	esac
+done
+
+ec2hosts=($(cut -d$'\t' -f1 ec2-hosts.txt))
+
+unset ec2hosts[0]
+for h in ${ec2hosts[@]}; do
+	ssh -t -oStrictHostKeyChecking=no -i $keyfile $username@$h << ENDSSH &> /dev/null 
+	pkill -f httpserver &> /dev/null
+	exit
+ENDSSH
+done
+
+ssh -t -oStrictHostKeyChecking=no -i $keyfile $username@cs5700cdnproject.ccs.neu.edu << ENDSSH &> /dev/null
+	
+	pkill -f dnsserver &> /dev/null	
+	exit
+ENDSSH
