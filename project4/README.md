@@ -37,6 +37,7 @@ I referred the logic of high level socket and tried to simulate all the process 
 * I implemented three-way handshake, time out, retransmission, out-order tcp packet dealing and congestion control
 (although in this program, it seems that it is not useful) in the transport layer.
 * dealing the chunked data
+
 ### Shifu Xu
 My work focus on the upper layer and lower layer, which are application (http) layer and datalink(ethernet) layer.
 * For the http layer, I defined an assemble_http_header() function for assembling the HTTP GET header. Next, I defined
