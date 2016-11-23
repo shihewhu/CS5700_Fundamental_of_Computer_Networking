@@ -25,7 +25,7 @@ class Http:
         # make sure the http header is even
         if len(http_header) % 2 != 0:
             http_header += ' '
-        
+
         return http_header
 
     def send(self, data):
@@ -42,7 +42,7 @@ class Http:
         data_recv = self.sock.recv_all()
         #remove the http header
         page = self.remove_header(data_recv)
-        # tell whether the data received is chunked, if chunked, remove the chunk length 
+        # tell whether the data received is chunked, if chunked, remove the chunk length
         if self.parse_chunked(page):
             try:
                 self.content = self.remove_chunk_length(page)
@@ -50,9 +50,9 @@ class Http:
                 self.content = page
         else:
             self.content = page
-        
+
         return self.content
-        
+
     def remove_header(self, data):
         # function for removing the http header
         header_offset = data.split('\r\n\r\n', 1)

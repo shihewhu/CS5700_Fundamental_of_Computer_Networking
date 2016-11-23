@@ -6,9 +6,7 @@ sudo ./rawhttpget url
 ########################
 
 
-########################
-## HighLevel Approach ##
-########################
+## HighLevel Approach
 We design the whole program layer by layer(OSI layer). Each layer provides api for the higher layer and 
 uses the api provided by the lower layer. Each layer has a class called [packetname]Socket(i.e TcpSocket).
 each class maintain a socket provided by the lower layer(like in TcpSocket class has a IpSocket). In datalink
