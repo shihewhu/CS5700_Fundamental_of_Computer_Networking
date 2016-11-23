@@ -12,17 +12,20 @@ When sending data, each layer will wrap its own packet and call the send api pro
 its own packet as parameter of the api(sending it to the lower layer). Each layer see the packet delievered from the higher layer as data. In datalink layer, the program will use RAW socket to send the packet
 When receiving data, each layer will unwrap the packet it received and valid the checksum and MAC address, ip address or port and return them to the higher layer. The application will grep the data, remove the header, and dealing with the chunk(if the data is chunked) and save it to a file in the local folder.
 ## Challenges
-    * The transport layer is rather complicated, we refer the high level socket(SOCK_STREAM) and implement the same api 
+* The transport layer is rather complicated, we refer the high level socket(SOCK_STREAM) and implement the same api 
 such as connect, send, recv_all and close. The connect method is used to execute the three-way handshake. The send method u
 ses the send method in network layer to send the data. The recv_all method
-    * When we do the checksum validation, we found the checksum is always wrong. Then we found that the header
-of the tcp packet sent by the server contains option, and the length is larger than 20. We use ihl * 4 to do
-the checksum, then correct!
-    * We noticesd that the data is chunked when the server sending, so we removed every chunk length from the data by regular expression
-    * When we receive a packet, we unwrap it. However, at first, we return the whole packet to the higher layer,
-We noticed this problem and just return the data
-    * in the network layer, when we got a ip packet, at first, we get the data just by remove the header. However, the padding will cause the checksum validataion error, then we used the total length to get the data
-    * The challenging part of extra in datalink layer is how to find the gateway ip using ARP. We designed a method called 
+
+* When we do the checksum validation, we found the checksum is always wrong. Then we found that the header
+of the tcp packet sent by the server contains option, and the length is larger than 20. We use ihl * 4 to do the checksum, then correct!
+
+* We noticesd that the data is chunked when the server sending, so we removed every chunk length from the data by regular expression
+
+* When we receive a packet, we unwrap it. However, at first, we return the whole packet to the higher layer, We noticed this problem and just return the data
+
+* in the network layer, when we got a ip packet, at first, we get the data just by remove the header. However, the padding will cause the checksum validataion error, then we used the total length to get the data
+
+* The challenging part of extra in datalink layer is how to find the gateway ip using ARP. We designed a method called 
 get_mac_addr_by_arp() to solve the problem. In the method, We try to simulate the process of ARP. In order to get the mac 
 address of the server, We assemble a ARP packet as the data of the frame and send the frame out as a broadcast ffff.ffff.ffff. 
 Then tell the whole LAN in server, and asking who has the given ip address. If the machine knows that it has the ip, then it will send the packet 
