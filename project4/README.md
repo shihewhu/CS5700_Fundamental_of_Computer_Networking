@@ -1,9 +1,7 @@
-########################
 1. Because we are using the RAW socket, you need root to run the program
 If you are not root please run the program
 sudo ./rawhttpget url
 2. mention that we have done the bonus part
-########################
 
 
 ## HighLevel Approach
@@ -15,51 +13,8 @@ When sending data, each layer will wrap its own packet and call the send api pro
 its own packet as parameter of the api(sending it to the lower layer). Each layer see the packet delievered from the higher layer as data. In datalink layer, the program will use RAW socket to send the packet
 When receiving data, each layer will unwrap the packet it received and valid the checksum and MAC address, ip address or port and return them to the higher layer. The application will grep the data, remove the header, and dealing with the chunk(if the data is chunked) and save it to a file in the local folder.
 
-The following figure shows the layer structure and all functions implmented in each layer
-=====================================
-|./rawhttpget url                   |
-=====================================
-             ^
-             | (api)
-Http:                    => HTTP get request, parse the url, 
-grep_data                   remove header, chunk dealing, save files
-=====================================
-|application(http.py) Http(String)  |
-=====================================
-             ^
-             | (api)
-TcpSocket:               => three way handshake, send tcp packet, receive tcp packet
-send, recv_all, connect,    time out, congestion control, out-order packet dealing
-close                       retransmission, TCP packet checksum validation
-=====================================
-|transport(transport.py) TcpPacket  |    
-=====================================
-			 ^
-             | (api)
-IpSocket:                => send ip packet, receive ip packet, filter the packet by 
-send, recv                  packet type, IP pacekt checksum validataion
-=====================================
-|network(network.py)     IpPacket   |
-=====================================
-			 ^
-             | (api)
-DataLinkSocket:          => ARP the gateway MAC address by its ip, send ethernet packet,
-send, recv                  receive ethernet packet
-=====================================
-|datalink(datalink.py)   EtherPacket|            
-=====================================
-			 ^
-             | (api)
-AF_PACKET, RAW_SOCK      => basic data sending and receiving
-sendto, recvfrom
-=====================================
-|  OS(linux)			            |
-=====================================
 
-
-########################
-## Challenges         ##
-########################
+## Challenges
 1. The transport layer is rather complicated, we refer the high level socket(SOCK_STREAM) and implement the same api 
 such as connect, send, recv_all and close. The connect method is used to execute the three-way handshake. The send method u
 ses the send method in network layer to send the data. The recv_all method
@@ -78,14 +33,9 @@ with the MAC address that replied. Now, we got the mac address of the server. We
 connect with the server and send the assembled packet out to the server. Next, We have to deal with some small problems, 
 using commands to the get the ip and mac address of the local machine. 
 
-####################################
-### Team Member Responsibilities ###
-####################################
+## Team Member Responsibilities
 
-################
-###  He Shi  ###
-################
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+###  He Shi
 My work focuses on the transport layer and network layer.
 I referred the logic of high level socket and tried to simulate all the process of the high level socket
 1. To the network layer, I defined the ip socket class to provide api for the transport layer. 
@@ -93,12 +43,7 @@ I referred the logic of high level socket and tried to simulate all the process 
 3. I implemented three-way handshake, time out, retransmission, out-order tcp packet dealing and congestion control
 (although in this program, it seems that it is not useful) in the transport layer.
 4. dealing the chunked data
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-################
-### Shifu Xu ###
-################
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+### Shifu Xu
 My work focus on the upper layer and lower layer, which are application (http) layer and datalink(ethernet) layer.
 1. For the http layer, I defined an assemble_http_header() function for assembling the HTTP GET header. Next, I defined
 the send() and receive() using the socket initiated from transport layer, send and recv_all() method provided by transport
@@ -110,11 +55,9 @@ store the data in the folder according the requirements. I defined a save_file()
 the a file name like 'project4.php', 'name.html', 'result.asp' and so on, I get the file name and write the data into the
 file whose name is the file name in the url. However, when the url ends with the '/', then I just use the default name 
 'index.html' as the file name.
-
 2. For the bonus part which is datalink layer. I used the AF_PACKET raw socket instead of IPPROTO_RAW. In this layer, I 
 have to deal with frame for each packet from the upper layer. The challenging part is to do MAC resolution with ARP 
 requests. I designed three classes, one is called EtherPacket, one is called ARPPacket, the last one is called 
 DataLinkSocket. EtherPacket provides assemble() method for assembling the frame, disassemble() method for disassembling
 the received packet. ARPPacket is different with normal frame, and the ARPPacket class provides the function like 
 assemble() for assemebling the certain ARP packet and disassemble() for disassembling the received ARP packets.
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
